@@ -12,7 +12,7 @@ class PageController extends Controller
 
         $posts = Post::all();
 
-        return response()->json(compact('posts'));
+        return response()->json($posts);
 
     }
 

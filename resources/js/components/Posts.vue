@@ -44,7 +44,7 @@ export default {
    getPosts(){
        axios.get(this.apiUrl)
        .then(res =>{
-         this.posts = res.data.posts
+         this.posts = res.data
          console.log(this.posts);
        })
    }

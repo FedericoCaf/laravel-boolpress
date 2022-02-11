@@ -1,21 +1,58 @@
 <template>
-  <main>
+  
  
     <div class="fc-container">
-        <h1>TITOLO</h1>
+        <h3>
+            {{ post.title }}
+        </h3>
 
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur dignissimos possimus est perspiciatis eveniet, distinctio, nobis totam ex quae doloremque, error deserunt ea deleniti? Sed, ullam consequuntur incidunt soluta nulla accusantium pariatur quo, aliquam, in deserunt laboriosam repudiandae excepturi dolorem consectetur assumenda laudantium id corporis nobis atque? Officia ea voluptatibus facilis. Aperiam, maiores. Non labore quam optio earum voluptates velit totam blanditiis ducimus, nulla voluptatibus! Aliquam corrupti fugit, laudantium delectus voluptas rerum dicta impedit perferendis, molestiae deleniti inventore iure distinctio modi quae ab. Incidunt reiciendis veritatis eum laboriosam doloribus autem voluptate, enim ipsam tempora minima fuga nobis odit maiores. 
+            {{post.content  }}
         </p>
+
+        <!-- <h4> {{ post.category.name }} </h4>
+        <h5> {{ post.tags.name }}  </h5> -->
 
     </div>
 
-  </main>
+  
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: "PostDetail",
+
+  data(){
+
+    return{
+
+      apiUrl: 'http://127.0.0.1:8000/api/posts/',
+      post:{
+          title: '',
+          content: '',
+          category: '',
+          tags: [],
+      }
+    }
+  },
+
+ methods:{
+   getApi(){
+     axios.get(this.apiUrl + this.$route.params.slug)
+         .then(res=> {
+           this.post = res.data;
+           console.log(this.post);
+         })
+   }
+ },
+
+ mounted(){
+   this.getApi();
+ }
+
+
+
+
 }
 </script>
 

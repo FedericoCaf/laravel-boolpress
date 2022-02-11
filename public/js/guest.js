@@ -2021,8 +2021,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Home"
+  name: "PostDetail",
+  data: function data() {
+    return {
+      apiUrl: 'http://127.0.0.1:8000/api/posts/',
+      post: {
+        title: '',
+        content: '',
+        category: '',
+        tags: []
+      }
+    };
+  },
+  methods: {
+    getApi: function getApi() {
+      var _this = this;
+
+      axios.get(this.apiUrl + this.$route.params.slug).then(function (res) {
+        _this.post = res.data;
+        console.log(_this.post);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getApi();
+  }
 });
 
 /***/ }),
@@ -2122,7 +2151,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get(this.apiUrl).then(function (res) {
-        _this.posts = res.data.posts;
+        _this.posts = res.data;
         console.log(_this.posts);
       });
     }
@@ -3763,26 +3792,13 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "fc-container" }, [
+    _c("h3", [_vm._v("\n        " + _vm._s(_vm.post.title) + "\n    ")]),
+    _vm._v(" "),
+    _c("p", [_vm._v("\n        " + _vm._s(_vm.post.content) + "\n    ")]),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("main", [
-      _c("div", { staticClass: "fc-container" }, [
-        _c("h1", [_vm._v("TITOLO")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\n        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur dignissimos possimus est perspiciatis eveniet, distinctio, nobis totam ex quae doloremque, error deserunt ea deleniti? Sed, ullam consequuntur incidunt soluta nulla accusantium pariatur quo, aliquam, in deserunt laboriosam repudiandae excepturi dolorem consectetur assumenda laudantium id corporis nobis atque? Officia ea voluptatibus facilis. Aperiam, maiores. Non labore quam optio earum voluptates velit totam blanditiis ducimus, nulla voluptatibus! Aliquam corrupti fugit, laudantium delectus voluptas rerum dicta impedit perferendis, molestiae deleniti inventore iure distinctio modi quae ab. Incidunt reiciendis veritatis eum laboriosam doloribus autem voluptate, enim ipsam tempora minima fuga nobis odit maiores. \n      "
-          ),
-        ]),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -19625,7 +19641,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'blog',
     component: _components_Posts__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
-    path: "/detail/:slug",
+    path: '/detail/:slug',
     name: 'detail',
     component: _components_PostDetail__WEBPACK_IMPORTED_MODULE_6__["default"]
   }]
